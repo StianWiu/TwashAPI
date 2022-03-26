@@ -2,13 +2,13 @@ console.clear();
 var express = require('express');
 const expressip = require('express-ip');
 var app = express();
+
 var bodyParser = require('body-parser');
 require('dotenv').config()
 app.use(bodyParser.json());
-const port = 3001; // Needs to be 3001 because of Nginx
+const port = 3001;
 
 const rateLimit = require('express-rate-limit');
-
 const limiter = rateLimit({
   windowMs: 1 * 60 * 1000, // 15 minutes
   max: 3, // Limit each IP to 100 requests per `window` (here, per 15 minutes)
@@ -27,8 +27,10 @@ const twitch = new TwitchApi({
   client_secret: process.env.SECRET
 });
 
+// Allow anyone to send request
 var cors = require('cors')
 app.use(cors())
+// Log IP of request
 app.use(expressip().getIpInfoMiddleware);
 
 // Receive data from client
