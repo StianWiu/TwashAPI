@@ -35,7 +35,7 @@ app.use(cors())
 app.use(expressip().getIpInfoMiddleware);
 
 // Receive data from client
-app.post('/api/test', async function (req, res) {
+app.post('/request/twitch/user', async function (req, res) {
   const username = req.body.username;
   var ip = req.ipInfo
   console.log(`${ip.ip} requested ${username}`);
