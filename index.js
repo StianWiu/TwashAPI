@@ -6,7 +6,7 @@ var app = express();
 var bodyParser = require('body-parser');
 require('dotenv').config()
 app.use(bodyParser.json());
-const port = 3001;
+const port = 7073;
 
 const rateLimit = require('express-rate-limit');
 const limiter = rateLimit({
