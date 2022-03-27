@@ -43,7 +43,7 @@ app.post('/api/request/twitch/user', async function (req, res) {
   if (username) {
     const streams = await twitch.getStreams({ channel: username });
     if (streams.data.length > 0) {
-      const streamURL = await m3u8.getStream(username)
+      const streamURL = await m3u8.getStream(username.toLowerCase())
       res.send({ twitch: streams.data[0], m3u8: streamURL[0] });
     } else {
       res.status(404).send({ error: 'User is not live' })
