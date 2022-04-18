@@ -59,8 +59,12 @@ app.post('/api/request/twitch/user/m3u8', async function (req, res) {
   var ip = req.ipInfo
   console.log(`${ip.ip} requested ${username}'s m3u8 link`);
   if (username) {
-    const streamURL = await m3u8.getStream(username.toLowerCase())
-    res.send(streamURL[0]);
+    try {
+      const streamURL = await m3u8.getStream(username.toLowerCase())
+      res.send(streamURL[0]);
+    } catch {
+      res.status(404).send({ error: 'User is not live' })
+    }
   } else {
     res.status(400).send({ error: 'No username specified' })
   }
