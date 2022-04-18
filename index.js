@@ -53,6 +53,19 @@ app.post('/api/request/twitch/user', async function (req, res) {
   }
 });
 
+app.post('/api/request/twitch/user/m3u8', async function (req, res) {
+  const username = req.body.username;
+  console.log(req.body)
+  var ip = req.ipInfo
+  console.log(`${ip.ip} requested ${username}'s m3u8 link`);
+  if (username) {
+    const streamURL = await m3u8.getStream(username.toLowerCase())
+    res.send(streamURL[0]);
+  } else {
+    res.status(400).send({ error: 'No username specified' })
+  }
+});
+
 // Start server
 app.listen(port, function () {
   console.log(`Server listening on port ${port} | ${new Date()}`);
